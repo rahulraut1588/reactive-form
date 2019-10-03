@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+/* GLOBAL */
+/* After Border */
+.title-with-border:after {
+    content: '';
+    display: block;
+    height: 8px;
+    width: 50px;
+    background-color: #17a2b8;
+    margin-top: 15px;
+}
+
+/* Box Shadow */
+.shadow-block { box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); }
+/* BACKGROUNDS */
+.back-grey { background-color: #f0f0f0; }
+.back-white { background-color: #ffffff; }
+
+/* SPACING */
+/* Margin */
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-30 { margin-bottom: 30px; }
+.mb-40 { margin-bottom: 40px; }
+.mb-50 { margin-bottom: 50px; }
+
+/* Padding */
+.p-20-0 { padding: 20px 0px; }
+
+/* COLOR */
+.color-info { color: #17a2b8; }
+
+/* BORDER COLOR */
+.border-info { border-color: #17a2b8; }
+
+/* FONTS */
+
+/* REGISTRATION PAGE */
+.main { height: 100vh; display: flex; align-items: center; }

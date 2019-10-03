@@ -1,0 +1,80 @@
+<div class="reg-form p-20-0">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mb-40 title-with-border">{{title}}</h1>
+        </div>
+    </div>
+    <form [formGroup]="profileForm" (submit)="onSubmit()">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="mb-10"> Name </h3>
+            </div>
+        </div>
+        <div class="row" formGroupName="name">
+            <div class="col-sm-4">
+                <input type="text" placeholder="First Name" class="form-control" formControlName="firstName">
+            </div>
+            <div class="col-sm-4">
+                <input type="text" placeholder="Middle Name" class="form-control" formControlName="middleName">
+            </div>
+            <div class="col-sm-4">
+                <input type="text" placeholder="Last Name" class="form-control" formControlName="lastName">
+            </div>
+        </div>
+        <hr class="border-info">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="mb-10"> Contact </h3>
+            </div>
+        </div>
+        <div class="row" formGroupName="contact">
+            <div class="col-sm-4">
+                <input type="email" placeholder="Email Address" class="form-control" formControlName="email">
+            </div>
+            <div class="col-sm-4">
+                <input type="tel" placeholder="Phone Number" class="form-control" formControlName="phone">
+            </div>
+            <div class="col-sm-4">
+                <input type="tel" placeholder="Whastapp Number" class="form-control" formControlName="wPhone">
+            </div>
+        </div>
+        <hr class="border-info">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="mb-10"> Location </h3>
+            </div>
+        </div>
+        <div class="row" formGroupName="location">
+            <div class="col-sm-4">
+                <textarea placeholder="Address" class="form-control" style="height: 85px;" formControlName="address"></textarea>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" placeholder="Country" class="form-control mb-10" formControlName="country">
+                <input type="text" placeholder="State" class="form-control" formControlName="state">
+            </div>
+            <div class="col-sm-4">
+                <input type="text" placeholder="City" class="form-control mb-10" formControlName="city">
+                <input type="text" placeholder="Zip" class="form-control" formControlName="zip">
+            </div>
+        </div>
+        <hr class="border-info">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="mb-10"> Password </h3>
+            </div>
+        </div>
+        <div class="row" formGroupName="key">
+            <div class="col-sm-6">
+                <input type="password" placeholder="Password" class="form-control" formControlName="password" autocomplete="off">
+            </div>
+            <div class="col-sm-6">
+                <input type="password" placeholder="Confirm Password" class="form-control" formControlName="cPassword" autocomplete="off">
+            </div>
+        </div>
+        <hr class="border-info">
+        <div class="text-center">
+            <button type="submit" class="btn btn-lg btn-success" [disabled]="!profileForm.valid"> Submit </button> &nbsp;&nbsp;
+            <button type="submit" class="btn btn-lg btn-danger" (click)="resetForm()" > Cancel </button>
+        </div>
+    </form>
+</div>
