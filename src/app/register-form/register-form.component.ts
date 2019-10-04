@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component ({
     selector: 'my-form',
@@ -9,7 +12,11 @@ import { Validators } from '@angular/forms';
 
 export class RegisterformComponent {
 
-    title = 'Registeration Form';    
+    title = 'Registeration Form';
+    userData: any;
+    public usersCollection: AngularFirestoreCollection<User>;
+    users: Observable<User[]>;
+    selectedId: any;
 
     profileForm = new FormGroup ({
         name: new FormGroup({
@@ -30,7 +37,7 @@ export class RegisterformComponent {
                     Validators.pattern('^[0-9]{10,14}$')
                 ]
             }),
-            wPhone: new FormControl('', {
+            whatsAppPhone: new FormControl('', {
                 validators: [
                     Validators.required,
                     Validators.pattern('^[0-9]{10,14}$')
@@ -54,17 +61,108 @@ export class RegisterformComponent {
             cPassword: new FormControl('', Validators.required)
         }, { updateOn: 'change' })
     });
-
     nameFields = this.profileForm.controls.name;
     contactFields = this.profileForm.controls.contact;
     addressFields = this.profileForm.controls.location;
     passwordFields = this.profileForm.controls.key;
-    
+
+    constructor(public afs: AngularFirestore, public currRoute:ActivatedRoute, public router: Router) {
+        this.usersCollection = afs.collection<User>('users');
+        afs.collection('users').snapshotChanges().subscribe( res => {
+            res.map ( changes => {
+                if (this.selectedId == changes.payload.doc.id) {
+                    this.userData = changes.payload.doc.data();
+                    this.profileForm.patchValue ({
+                        name: {
+                            firstName: this.userData.firstName,
+                            middleName: this.userData.middleName,
+                            lastName: this.userData.lastName
+                        },
+                        contact: {
+                            email: this.userData.email,
+                            phone: this.userData.phone,
+                            whatsAppPhone: this.userData.whatsAppPhone
+                        },
+                        location: {
+                            address: this.userData.address,
+                            country: this.userData.country,
+                            state: this.userData.state,
+                            city: this.userData.city,
+                            zip: this.userData.zip
+                        },
+                        key: {
+                            password: this.userData.password,
+                            cPassword: this.userData.password
+                        }
+                    });
+                }
+            });
+        });
+
+        currRoute.params.subscribe( (params:any) => {
+            this.selectedId = params['myId'];
+        });
+
+    }
+
     onSubmit() {
-        console.log(this.profileForm.value);
+        if (this.selectedId) {
+            this.afs.collection("users").doc(this.selectedId).set({
+                firstName: this.profileForm.value.name.firstName,
+                middleName: this.profileForm.value.name.middleName,
+                lastName: this.profileForm.value.name.lastName,
+                email: this.profileForm.value.contact.email,
+                phone: this.profileForm.value.contact.phone,
+                whatsAppPhone: this.profileForm.value.contact.whatsAppPhone,
+                address: this.profileForm.value.location.address,
+                country: this.profileForm.value.location.country,
+                state: this.profileForm.value.location.state,
+                city: this.profileForm.value.location.city,
+                zip: this.profileForm.value.location.zip,
+                password: this.profileForm.value.key.password
+            })
+            .then(function() {
+                alert("Document successfully written!");
+            })
+            .catch(function(error) {
+                alert("Error writing document: " + error);
+            });
+        } else {
+            var insertData = { 
+                firstName: this.profileForm.value.name.firstName,
+                middleName: this.profileForm.value.name.middleName,
+                lastName: this.profileForm.value.name.lastName,
+                email: this.profileForm.value.contact.email,
+                phone: this.profileForm.value.contact.phone,
+                whatsAppPhone: this.profileForm.value.contact.whatsAppPhone,
+                address: this.profileForm.value.location.address,
+                country: this.profileForm.value.location.country,
+                state: this.profileForm.value.location.state,
+                city: this.profileForm.value.location.city,
+                zip: this.profileForm.value.location.zip,
+                password: this.profileForm.value.key.password
+            }
+            this.usersCollection.add(insertData);
+        }
+        this.router.navigate(['/usersList']);
     }
 
     resetForm() {
         this.profileForm.reset(''); 
     }
+
+}
+
+interface User { 
+    firstName: string,
+    middleName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    whatsAppPhone: string,
+    address: string,
+    country: string,
+    state: string,
+    city: string,
+    zip: string
 }

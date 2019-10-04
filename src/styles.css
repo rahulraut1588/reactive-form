@@ -1,5 +1,6 @@
 /* GLOBAL */
 .block { display: block; }
+.flex-align-middle { display: flex; align-items: center; width: 100%; }
 
 /* After Border */
 .title-with-border:after {
@@ -30,7 +31,9 @@
 .mtb-10 { margin-top: 10px; margin-bottom: 10px; }
 
 /* Padding */
+.p-40 { padding: 40px; }
 .p-20-0 { padding: 20px 0px; }
+.p-20-15 { padding: 20px 15px; }
 
 /* COLOR */
 .color-info { color: #17a2b8; }
@@ -45,4 +48,4 @@
 input.form-control:focus { box-shadow: none; border-color: #17a2b8; }
 
 /* REGISTRATION PAGE */
-.main { height: 100vh; display: flex; align-items: center; }
+.main { height: 100vh; overflow-y: auto; }
