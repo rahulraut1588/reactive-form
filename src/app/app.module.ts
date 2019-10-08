@@ -39,8 +39,6 @@ const config = {
   measurementId: "G-KDQJ6D8M2W"
 };
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -5,9 +5,9 @@ import * as firebase from 'firebase/app';
 import { AngularFireAuth } from  "@angular/fire/auth";
 import { User } from  'firebase';
 import { ToastrService } from 'ngx-toastr';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { AngularFireDatabase } from  "@angular/fire/database";
-import { query } from '@angular/core/src/render3';
+
 
 @Injectable({
     providedIn:  'root'
@@ -18,7 +18,7 @@ export class AuthService {
     user: User;
     loggedIn: boolean;
 
-    constructor(public  afAuth:  AngularFireAuth, public  router: Router, public toastr: ToastrService, public db: AngularFireDatabase) { }
+    constructor( public afAuth: AngularFireAuth, public  router: Router, public toastr: ToastrService, public afs: AngularFirestore) { }
 
     checkLoggedIn() {
         if( localStorage.firebaseUserId ) {
@@ -46,13 +46,8 @@ export class AuthService {
         });
     }
 
-    // findLessonById(url:string):Observable<User> {
-        // return this.db.list('users', query: { equalTo: url } ).pipe(
-        // filter(results => results && results.length > 0),
-        // map(results => Lesson.fromJson(results[0])),
-        // tap(console.log),);
+    getUser ( userId ): Observable<any> {
+        return this.afs.collection('users').doc(userId).valueChanges();
+    }
 
-        // this.db.list('users');
-        // this.db.database.ref('users')
-    // }
 }  

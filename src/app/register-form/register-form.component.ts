@@ -74,7 +74,6 @@ export class RegisterformComponent {
 
         currRoute.data.subscribe( res => {
             console.log(res);
-            debugger;
         })
 
         afs.collection('users').doc(this.selectedId).snapshotChanges().subscribe( res => {
