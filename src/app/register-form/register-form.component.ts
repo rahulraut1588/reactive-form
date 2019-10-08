@@ -67,42 +67,42 @@ export class RegisterformComponent {
     passwordFields = this.profileForm.controls.key;
 
     constructor(public afs: AngularFirestore, public currRoute:ActivatedRoute, public router: Router) {
-        this.usersCollection = afs.collection<User>('users');
-        afs.collection('users').snapshotChanges().subscribe( res => {
-            res.map ( changes => {
-                if (this.selectedId == changes.payload.doc.id) {
-                    this.userData = changes.payload.doc.data();
-                    this.profileForm.patchValue ({
-                        name: {
-                            firstName: this.userData.firstName,
-                            middleName: this.userData.middleName,
-                            lastName: this.userData.lastName
-                        },
-                        contact: {
-                            email: this.userData.email,
-                            phone: this.userData.phone,
-                            whatsAppPhone: this.userData.whatsAppPhone
-                        },
-                        location: {
-                            address: this.userData.address,
-                            country: this.userData.country,
-                            state: this.userData.state,
-                            city: this.userData.city,
-                            zip: this.userData.zip
-                        },
-                        key: {
-                            password: this.userData.password,
-                            cPassword: this.userData.password
-                        }
-                    });
-                }
-            });
-        });
 
         currRoute.params.subscribe( (params:any) => {
             this.selectedId = params['myId'];
         });
 
+        currRoute.data.subscribe( res => {
+            console.log(res);
+            debugger;
+        })
+
+        afs.collection('users').doc(this.selectedId).snapshotChanges().subscribe( res => {
+            this.userData = res.payload.data();
+            this.profileForm.patchValue ({
+                name: {
+                    firstName: this.userData.firstName,
+                    middleName: this.userData.middleName,
+                    lastName: this.userData.lastName
+                },
+                contact: {
+                    email: this.userData.email,
+                    phone: this.userData.phone,
+                    whatsAppPhone: this.userData.whatsAppPhone
+                },
+                location: {
+                    address: this.userData.address,
+                    country: this.userData.country,
+                    state: this.userData.state,
+                    city: this.userData.city,
+                    zip: this.userData.zip
+                },
+                key: {
+                    password: this.userData.password,
+                    cPassword: this.userData.password
+                }
+            });
+        });
     }
 
     onSubmit() {

@@ -1,6 +1,6 @@
 <div class="main back-grey p-40 flex-align-middle">
     <div class="row" style="width: 100%;">
-        <div class="back-white shadow-block p-20-15 col-sm-6 offset-sm-3"> 
+        <div class="back-white shadow-block p-20-15 col-sm-6 col-md-4 offset-sm-3 offset-md-4"> 
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <h2 class="mb-40 title-with-border">Sign In</h2>
@@ -9,7 +9,7 @@
             <form [formGroup]="loginForm" (submit)="onSubmit()">
                 <div class="row mb-40" formGroupName="auth">
                     <div class="col-sm-12 text-center">
-                        <input type="email" placeholder="Email Address" class="form-control mb-10" formControlName="email" autocomplete="off">
+                        <input type="text" placeholder="Email Address" class="form-control mb-10" formControlName="email" autocomplete="off">
                         <p *ngIf="authFields.controls.email.status == 'INVALID' && authFields.controls.email.dirty == true" class="color-danger mtb-10"> Enter valid email address</p>
                         <input type="password" placeholder="Password" class="form-control" formControlName="password" autocomplete="off">
                         <p *ngIf="authFields.controls.password.status == 'INVALID' && authFields.controls.password.dirty == true" class="color-danger mtb-10"> Enter correct password</p>

@@ -14,7 +14,7 @@ export class UserlistComponent {
     userDoc: AngularFirestoreDocument;
 
     constructor(public afs: AngularFirestore) {
-        this.users = afs.collection('users').valueChanges();
+        this.users = afs.collection('users').snapshotChanges();
         var i = 0;
         afs.collection('users').snapshotChanges().subscribe( res => {
             res.map ( changes => {
