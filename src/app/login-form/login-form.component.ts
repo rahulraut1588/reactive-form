@@ -20,7 +20,6 @@ export class LoginformComponent {
     loginForm: FormGroup;
 
     constructor(public afs: AngularFirestore, public auth:AuthService, public router: Router, public toastr: ToastrService) {
-        this.auth.checkLoggedIn();
         this.loginForm = new FormGroup ({
             auth: new FormGroup ({
                 email: new FormControl('', {
@@ -44,6 +43,7 @@ export class LoginformComponent {
         this.auth.doNormalLogin(userdata).then( res => {
             localStorage.setItem('firebaseEmail', res.user.email);
             localStorage.setItem('firebaseUserId', res.user.uid);
+            this.toastr.success('', 'Login Successfull' );
             this.router.navigate(['']);
         })
         .catch ( err => {

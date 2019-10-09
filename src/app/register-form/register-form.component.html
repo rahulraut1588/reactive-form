@@ -63,13 +63,13 @@
 
                 </div>
             </div>
-            <hr class="border-info">
-            <div class="row">
+            <hr class="border-info" *ngIf="!hidePassword">
+            <div class="row" *ngIf="!hidePassword">
                 <div class="col-sm-12">
                     <h3 class="mb-10"> Password </h3>
                 </div>
             </div>
-            <div class="row" formGroupName="key">
+            <div class="row" formGroupName="key" *ngIf="!hidePassword">
                 <div class="col-sm-6">
                     <input type="password" placeholder="Password" class="form-control" formControlName="password" autocomplete="off">
                 </div>
@@ -81,7 +81,8 @@
             <hr class="border-info">
             <div class="text-center">
                 <button type="submit" class="btn btn-lg btn-success" [disabled]="(!profileForm.valid) || (passwordFields.controls.cPassword.value != passwordFields.controls.password.value)"> Submit </button> &nbsp;&nbsp;
-                <button type="submit" class="btn btn-lg btn-danger" (click)="resetForm()" > Cancel </button>
+                <button type="button" class="btn btn-lg btn-warning pointer" (click)="resetForm()"> Clear </button> &nbsp;&nbsp;
+                <button type="button" class="btn btn-lg btn-danger pointer" (click)="cancelForm()"> Cancel </button>
             </div>
         </form>
     </div>

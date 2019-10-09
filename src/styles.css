@@ -1,6 +1,7 @@
 /* GLOBAL */
 .block { display: block; }
 .flex-align-middle { display: flex; align-items: center; width: 100%; }
+.pointer { cursor: pointer; }
 
 /* After Border */
 .title-with-border:after {
@@ -20,6 +21,10 @@
 /* BACKGROUNDS */
 .back-grey { background-color: #f0f0f0; }
 .back-white { background-color: #ffffff; }
+
+/* ALIGNMENT */
+.pull-left { float: left; }
+.pull-right { float: right; }
 
 /* SPACING */
 /* Margin */
@@ -44,7 +49,7 @@
 
 /* FONTS */
 
-/*  */
+/* FORMS */
 input.form-control:focus { box-shadow: none; border-color: #17a2b8; }
 
 /* REGISTRATION PAGE */

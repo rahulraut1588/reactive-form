@@ -11,11 +11,11 @@ export class UserlistComponent {
 
     userData=[];
     users: any;
-    userDoc: AngularFirestoreDocument;
 
     constructor(public afs: AngularFirestore) {
         this.users = afs.collection('users').snapshotChanges();
         var i = 0;
+        this.userData=[];
         afs.collection('users').snapshotChanges().subscribe( res => {
             res.map ( changes => {
                 this.userData[i] = changes.payload.doc.data();
